@@ -1,0 +1,14 @@
+Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
+Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
+Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
+Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
+
+
+Ontology(<http://owl.cs.man.ac.uk/dlapproximated/353f96b3-1adc-446a-9dca-59f4af695e0a_2.0draftB.rdfs.owl.xml>
+Declaration(Class(<file:/media/owl/Seagate%20Expansion%20Drive/mowlcorp_rep/mowlcorp_2014.10.07_orig/files/E72_Legal_Object>))
+Declaration(Class(<file:/media/owl/Seagate%20Expansion%20Drive/mowlcorp_rep/mowlcorp_2014.10.07_orig/files/F3_Manifestation_Product_Type>))
+Declaration(Class(<file:test>))
+SubClassOf(<file:/media/owl/Seagate%20Expansion%20Drive/mowlcorp_rep/mowlcorp_2014.10.07_orig/files/F3_Manifestation_Product_Type> <file:test>)
+SubClassOf(<file:test> <file:/media/owl/Seagate%20Expansion%20Drive/mowlcorp_rep/mowlcorp_2014.10.07_orig/files/E72_Legal_Object>)
+)
