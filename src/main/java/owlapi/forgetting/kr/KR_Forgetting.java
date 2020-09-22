@@ -55,22 +55,6 @@ public class KR_Forgetting {
 				break;
 			default:
 		}
-		// READ IN S FROM THE file
-		OWLOntology ontology2 = manager.loadOntologyFromOntologyDocument(ontologyDocument);
-
-		// FOR EACH AXIOM GET ALL EXPLANATIONS
-		for (final OWLSubClassOfAxiom subsumption : ontology2.getAxioms(AxiomType.SUBCLASS_OF)){
-			String input2 = args[2].toLowerCase();
-			switch (input2) {
-				case "printallexplanations":
-					getAllExplanations(ontology, subsumption.getSubClass(), subsumption.getSuperClass());
-					break;
-				case "saveallexplanations":
-					getAllExplanations(ontology, subsumption.getSubClass(), subsumption.getSuperClass(), parentDir);
-					break;
-				default:
-			}
-		}
 
 	}
 
@@ -102,50 +86,6 @@ public class KR_Forgetting {
 		System.out.println("--------");
 		System.out.println("Done! All subClass statements are saved at file: " + subClassFile);
 		fos.close();
-	}
-
-	public static void getAllExplanations(OWLOntology myOntology, OWLClassExpression subClass,OWLClassExpression superClass){
-
-		// Starting up the Pellet Explanation module.
-		PelletExplanation.setup();
-		// Create the reasoner and load the ontology with the open pellet reasoner.
-		OpenlletReasoner reasoner = OpenlletReasonerFactory.getInstance().createReasoner(myOntology);
-
-		// Create an Explanation reasoner with the Pellet Explanation and the Openllet Reasoner modules.
-		PelletExplanation explanationsGenerator = new PelletExplanation(reasoner);
-
-		Set<Set<OWLAxiom>> explanations = explanationsGenerator.getSubClassExplanations(subClass, superClass);
-
-		for(Set<OWLAxiom> Explanation: explanations) {
-			for (OWLAxiom rule : Explanation) {
-				System.out.println(rule.toString());
-			}
-		}
-
-	}
-
-	public static void getAllExplanations(OWLOntology myOntology, OWLClassExpression subClass,OWLClassExpression superClass, String parentDir) throws IOException {
-		File explanationsFile = new File(parentDir+"/explanation.txt");
-		explanationsFile.createNewFile();
-		FileOutputStream fos = new FileOutputStream(explanationsFile, false);
-
-		// Starting up the Pellet Explanation module.
-		PelletExplanation.setup();
-		// Create the reasoner and load the ontology with the open pellet reasoner.
-		OpenlletReasoner reasoner = OpenlletReasonerFactory.getInstance().createReasoner(myOntology);
-
-		// Create an Explanation reasoner with the Pellet Explanation and the Openllet Reasoner modules.
-		PelletExplanation explanationsGenerator = new PelletExplanation(reasoner);
-
-		Set<Set<OWLAxiom>> explanations = explanationsGenerator.getSubClassExplanations(subClass, superClass);
-
-		for(Set<OWLAxiom> Explanation: explanations) {
-			for (OWLAxiom rule : Explanation) {
-				fos.write(rule.toString().getBytes());
-				fos.write(System.lineSeparator().getBytes());
-			}
-		}
-
 	}
 
 }
