@@ -1,1 +1,3 @@
-<file:/media/owl/Seagate%20Expansion%20Drive/mowlcorp_rep/mowlcorp_2014.10.07_orig/files/F3_Manifestation_Product_Type> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <file:/media/owl/Seagate%20Expansion%20Drive/mowlcorp_rep/mowlcorp_2014.10.07_orig/files/E72_Legal_Object> .
+<http://example.com/myOntology/KR_Professor> <http://www.w3.org/2000/01/rdf-schema#subClassOf>  <http://example.com/myOntology/Person> .
+<http://example.com/myOntology/KR_Professor> <http://www.w3.org/2000/01/rdf-schema#subClassOf>  <http://example.com/myOntology/Professor> .
+<http://example.com/myOntology/Professor> <http://www.w3.org/2000/01/rdf-schema#subClassOf>  <http://example.com/myOntology/Person> .
