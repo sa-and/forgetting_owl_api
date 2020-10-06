@@ -184,17 +184,35 @@ public class App {
 		System.out.println("\nComputing explanation for: " + subClass + " rdfs:subClassOf " + superClass);
 		Set<Set<OWLAxiom>> explanations = explanationsGenerator.getSubClassExplanations(subClass, superClass);		
 		for(Set<OWLAxiom> Explanation: explanations) {
+			// create empty ontology
+			OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+			IRI ontologyIRI = IRI.create("https://result.org/onto.owl");
+			OWLOntology onto = null;
+			try{
+				onto = man.createOntology(ontologyIRI);
+			} catch (OWLOntologyCreationException e) {
+				e.printStackTrace();
+			}
+
+			// add all rules as axioms to the ontology
 			int counterRule = 0;
 			System.out.println("-> Explanation #" + explanationID );
 			String fileName = "exp-" + explanationID + ".owl";
-			File explanationFile = new File(dirPath+"/" + fileName);
-			explanationFile.createNewFile();
-			FileOutputStream fos = new FileOutputStream(explanationFile, false);
 			for (OWLAxiom rule : Explanation) {
 				counterRule++;
 				System.out.println("\t Axiom " + counterRule + ". " + rule.toString());
-				fos.write(rule.toString().getBytes());
-				fos.write(System.lineSeparator().getBytes());
+				AddAxiom ax = new AddAxiom(onto, rule);
+				man.applyChange(ax);
+			}
+
+			// save the ontology
+			File explanationFile = new File(dirPath+"/" + fileName);
+			explanationFile.createNewFile();
+			FileOutputStream fos = new FileOutputStream(explanationFile, false);
+			try {
+				man.saveOntology(onto, fos);
+			} catch (OWLOntologyStorageException e) {
+				e.printStackTrace();
 			}
 			fos.close();
 		}
