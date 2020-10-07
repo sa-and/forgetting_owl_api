@@ -183,6 +183,7 @@ public class App {
 	public static void saveExplanationsOfAxiom(PelletExplanation explanationsGenerator, OWLClassExpression subClass, OWLClassExpression superClass, int explanationID, String dirPath) throws IOException{
 		System.out.println("\nComputing explanation for: " + subClass + " rdfs:subClassOf " + superClass);
 		Set<Set<OWLAxiom>> explanations = explanationsGenerator.getSubClassExplanations(subClass, superClass);		
+		int explanationsNo = 1;
 		for(Set<OWLAxiom> Explanation: explanations) {
 			// create empty ontology
 			OWLOntologyManager man = OWLManager.createOWLOntologyManager();
@@ -197,7 +198,7 @@ public class App {
 			// add all rules as axioms to the ontology
 			int counterRule = 0;
 			System.out.println("-> Explanation #" + explanationID );
-			String fileName = "exp-" + explanationID + ".owl";
+			String fileName = "exp-" + explanationID + "-" + explanationsNo + ".owl";
 			for (OWLAxiom rule : Explanation) {
 				counterRule++;
 				System.out.println("\t Axiom " + counterRule + ". " + rule.toString());
@@ -215,6 +216,7 @@ public class App {
 				e.printStackTrace();
 			}
 			fos.close();
+			explanationsNo++;
 		}
 	}
 
